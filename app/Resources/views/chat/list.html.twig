@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список чатов{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Список чатов</h1>
+        <ul class="list-group">
+            {% for chat in chats %}
+                <li class="list-group-item">
+                    <a href="{{ path('chat_view', {'id': chat.id}) }}">{{ chat.name }}</a>
+                </li>
+            {% else %}
+                <li class="list-group-item">Нет доступных чатов</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

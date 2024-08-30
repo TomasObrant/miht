@@ -1,4 +1,4 @@
-FROM php:7.4.0-fpm
+FROM php:7.2-fpm
 
 RUN groupadd -g 1000 www \
     && useradd -u 1000 -ms /bin/bash -g www www
