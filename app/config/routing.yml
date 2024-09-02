@@ -1,13 +1,9 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+    prefix:   /
 
-chat_list:
-    path: /api/chats
-    methods: [GET]
-    defaults: { _controller: AppBundle:Chat:list }
-
-chat_view:
-    path: /api/chats/{id}
-    methods: [GET]
-    defaults: { _controller: AppBundle:Chat:view }
+chat:
+    resource: '@ChatBundle/Controller/'
+    type:     annotation
+    prefix:   /

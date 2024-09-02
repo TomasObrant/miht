@@ -1,15 +1,16 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace ChatBundle\Entity;
 
+use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Chat
+ * chat
  *
  * @ORM\Table(name="chat")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ChatRepository")
+ * @ORM\Entity(repositoryClass="ChatBundle\Repository\ChatRepository")
  */
 class Chat
 {
@@ -21,7 +22,12 @@ class Chat
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\Column(type="text")
+     */
+    private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", inversedBy="chats")
      * @ORM\JoinTable(name="chat_users",
      *      joinColumns={@ORM\JoinColumn(name="chat_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -30,7 +36,7 @@ class Chat
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="chat", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ChatBundle\Entity\Message", mappedBy="chat", cascade={"persist", "remove"})
      */
     private $messages;
 
@@ -45,7 +51,19 @@ class Chat
         return $this->id;
     }
 
-    public function getUsers()
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getUsers(): ArrayCollection
     {
         return $this->users;
     }
@@ -68,7 +86,7 @@ class Chat
         return $this;
     }
 
-    public function getMessages()
+    public function getMessages(): ArrayCollection
     {
         return $this->messages;
     }

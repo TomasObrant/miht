@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block body %}
+    <div class="container-fluid d-flex vh-100" style="margin-top: 100px">
+        <div class="row w-100 align-items-center justify-content-center">
+            <div class="text-center">
+                {% if isLoggedIn %}
+                    <a href="{{ path('logout') }}" class="btn btn-danger btn-lg m-2">Выйти</a>
+                    <a href="{{ path('chat_list') }}" class="btn btn-primary btn-lg m-2">Список чатов</a>
+                {% else %}
+                    <a href="{{ path('login') }}" class="btn btn-primary btn-lg m-2">Войти</a>
+                    <a href="{{ path('register') }}" class="btn btn-success btn-lg m-2">Зарегистрироваться</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

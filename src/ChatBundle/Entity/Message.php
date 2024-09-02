@@ -1,14 +1,15 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace ChatBundle\Entity;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Message
  *
  * @ORM\Table(name="message")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\MessageRepository")
+ * @ORM\Entity(repositoryClass="ChatBundle\Repository\MessageRepository")
  */
 class Message
 {
@@ -25,13 +26,13 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="messages")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Chat", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="ChatBundle\Entity\Chat", inversedBy="messages")
      * @ORM\JoinColumn(name="chat_id", referencedColumnName="id", nullable=true)
      */
     private $chat;

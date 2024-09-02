@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AppBundle\Entity;
 
+use ChatBundle\Entity\Chat;
+use ChatBundle\Entity\Message;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
@@ -26,6 +28,30 @@ class User implements UserInterface, Serializable
     private $id;
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return true
+     */
+    public function getIsActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param true $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
      * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
@@ -46,12 +72,12 @@ class User implements UserInterface, Serializable
     private $isActive;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Chat", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="ChatBundle\Entity\Chat", mappedBy="users")
      */
     private $chats;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ChatBundle\Entity\Message", mappedBy="user", cascade={"persist", "remove"})
      */
     private $messages;
 
@@ -131,7 +157,7 @@ class User implements UserInterface, Serializable
             ) = unserialize($serialized, array('allowed_classes' => false));
     }
 
-    public function getChats()
+    public function getChats(): ArrayCollection
     {
         return $this->chats;
     }
